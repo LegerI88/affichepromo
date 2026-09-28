@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'affiche promotionnelle – 2de MRC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --ink:#16241D; --muted:#4F5F57; --line:#D5DDD8;
+  --green:#1F7A4D; --green-soft:#E3F1E9; --yellow:#FFD23F; --red:#D7263D; --red-soft:#FBE4E7;
+  --ok:#1F7A4D; --ko:#B3202F;
+  --display:"Anton", Impact, "Arial Narrow Bold", sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121A16; --surface:#1B2620; --ink:#E9F0EC; --muted:#A9B8B0; --line:#2F3D35;
+    --green:#5CC28E; --green-soft:#1F3328; --red:#FF6B7A; --red-soft:#3A1E23; --ok:#5CC28E; --ko:#FF7B88;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121A16; --surface:#1B2620; --ink:#E9F0EC; --muted:#A9B8B0; --line:#2F3D35;
+  --green:#5CC28E; --green-soft:#1F3328; --red:#FF6B7A; --red-soft:#3A1E23; --ok:#5CC28E; --ko:#FF7B88;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+img,svg{max-width:100%}
+a{color:var(--green)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+/* Navigation */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.top .in{max-width:980px;margin:0 auto;display:flex;gap:.25rem;padding:.5rem 1rem;overflow-x:auto}
+nav.top a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:700;padding:.45rem .8rem;border-radius:6px;font-size:.95rem}
+nav.top a:hover{background:var(--green-soft)}
+
+/* Hero */
+header.hero{max-width:980px;margin:0 auto;padding:2.5rem 1rem 1.5rem;display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;align-items:center}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,7vw,4.6rem);line-height:.95;margin:0 0 1rem;letter-spacing:.01em}
+.hero p{margin:.4rem 0;color:var(--muted);max-width:52ch}
+.hero .class{display:inline-block;background:var(--ink);color:var(--bg);font-weight:700;padding:.2rem .6rem;border-radius:4px;font-size:.9rem;margin-bottom:.8rem}
+.tag{position:relative;background:var(--yellow);color:#16241D;padding:1.4rem 1.4rem 1.4rem 2.4rem;border-radius:6px 18px 18px 6px;transform:rotate(-3deg);box-shadow:0 10px 0 -4px rgba(0,0,0,.12);font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);line-height:1}
+.tag::before{content:"";position:absolute;left:.9rem;top:50%;width:.8rem;height:.8rem;border-radius:50%;background:var(--bg);transform:translateY(-50%);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
+.tag small{display:block;font-family:var(--body);font-weight:700;font-size:1rem;margin-top:.4rem}
+.tag s{font-family:var(--body);font-size:1.1rem;font-weight:400;opacity:.8}
+
+main{max-width:980px;margin:0 auto;padding:0 1rem 4rem}
+section.part{margin-top:3rem}
+.part-head{display:flex;align-items:baseline;gap:1rem;border-bottom:4px solid var(--ink);padding-bottom:.4rem;margin-bottom:1.5rem}
+.part-head .n{font-family:var(--display);font-size:3rem;line-height:1;color:var(--green)}
+.part-head h2{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,4.5vw,2.6rem);margin:0;line-height:1.05}
+h3{font-size:1.3rem;margin:2.2rem 0 .6rem}
+p,li{max-width:70ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem;margin:1rem 0}
+.def{border-left:6px solid var(--green)}
+.law{border-left:6px solid var(--red)}
+.law h4,.def h4{margin:0 0 .4rem;font-size:1.05rem}
+.src{font-size:.88rem;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* Anatomie */
+.anat{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:1.5rem;align-items:start}
+.poster{position:relative;width:100%;background:#fff;color:#16241D;border:1px solid #cfd8d3;border-radius:6px;aspect-ratio:1/1.414;min-height:470px;overflow:hidden;font-family:var(--body);box-shadow:0 12px 30px -18px rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:space-between;padding-bottom:.5rem}
+.poster .row{position:relative;text-align:center;padding:0 2.4rem}
+.poster .hs{position:absolute;left:.35rem;top:50%;transform:translateY(-50%)}
+.poster .band{background:#1F7A4D;color:#fff;padding:.55rem 2.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.95rem}
+.poster .band .dot{width:1.1rem;height:1.1rem;border-radius:50%;background:#FFD23F;display:inline-block}
+.poster .hook{font-family:var(--display);font-size:1.85rem;line-height:1.05}
+.poster .prod{font-weight:700;font-size:.95rem}
+.poster .visual{display:flex;justify-content:center;align-items:center;gap:.4rem;padding-right:.5rem}
+.poster .sticker{position:relative;flex:0 0 auto;width:4.4rem;height:4.4rem;border-radius:50%;background:#D7263D;color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.35rem;transform:rotate(10deg)}
+.poster .sticker .hs{left:auto;right:-.9rem;top:-.5rem;transform:rotate(-10deg)}
+.poster .old{font-size:.88rem;color:#4F5F57}
+.poster .new{font-family:var(--display);font-size:2.4rem;color:#D7263D;line-height:1}
+.poster .dates{font-weight:700;font-size:.9rem}
+.poster .cta{display:inline-block;background:#FFD23F;padding:.25rem .7rem;border-radius:4px;font-weight:700;font-size:.9rem}
+.poster .legal{font-size:.7rem;color:#4F5F57}
+.hs{width:1.8rem;height:1.8rem;border-radius:50%;border:2px solid #16241D;background:#FFD23F;color:#16241D;font-weight:700;font-family:var(--body);cursor:pointer;display:grid;place-items:center;font-size:.8rem;padding:0;line-height:1}
+.hs[aria-pressed="true"]{background:#16241D;color:#FFD23F}
+.anat-panel{min-height:14rem}
+.anat-panel h4{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:0 0 .3rem}
+.anat-list{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.anat-list button{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:20px;padding:.2rem .7rem;cursor:pointer}
+.anat-list button.seen{background:var(--green-soft);border-color:var(--green)}
+
+/* AIDA */
+.aida{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}
+.flip{perspective:900px;min-height:13rem}
+.flip button{all:unset;display:block;width:100%;height:100%;cursor:pointer}
+.flip .inner{position:relative;width:100%;height:100%;min-height:13rem;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:1rem;display:flex;flex-direction:column}
+.flip .front{background:var(--ink);color:var(--bg);justify-content:space-between}
+.flip .front .L{font-family:var(--display);font-size:4rem;line-height:1;color:var(--yellow)}
+.flip .back{background:var(--surface);border:2px solid var(--ink);transform:rotateY(180deg);font-size:.95rem;overflow:auto}
+.flip .back strong{display:block;margin-bottom:.3rem}
+
+/* Règles */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
+.rules .card{margin:0}
+.rules h4{margin:0 0 .3rem}
+
+/* Calcul */
+.calc{font-size:1.15rem;background:var(--green-soft);border-radius:8px;padding:.8rem 1rem;display:inline-block}
+table.hist{border-collapse:collapse;width:100%;min-width:420px;font-size:.95rem}
+table.hist th,table.hist td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left}
+table.hist th{background:var(--green-soft)}
+.scroll{overflow-x:auto}
+
+/* Quiz & forms */
+fieldset{border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0;background:var(--surface)}
+legend{font-weight:700;padding:0 .3rem;max-width:65ch}
+label.opt{display:flex;gap:.6rem;align-items:flex-start;padding:.35rem .4rem;border-radius:6px;cursor:pointer}
+label.opt:hover{background:var(--green-soft)}
+label.opt input{margin-top:.35rem;accent-color:var(--green);width:1.1rem;height:1.1rem}
+.fb{margin-top:.5rem;font-weight:700;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.fb span{font-weight:400;color:var(--ink)}
+.btn{font:inherit;font-weight:700;background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:.65rem 1.1rem;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.score{font-family:var(--display);font-size:2rem}
+input[type=text],input[type=number],textarea,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.5rem .6rem;width:100%;max-width:28rem}
+.field{margin:.9rem 0}
+.field label{display:block;font-weight:700;margin-bottom:.25rem}
+.hint{font-size:.9rem;color:var(--muted)}
+
+/* Affiche à erreurs */
+.bad{position:relative;width:100%;max-width:360px;min-height:420px;aspect-ratio:1/1.414;background:#fff;color:#16241D;border:1px solid #cfd8d3;border-radius:6px;overflow:hidden;margin:0 auto}
+.bad .zone{all:unset;position:absolute;left:0;right:0;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed transparent}
+.bad .zone:hover{border-color:#9BA9A2}
+.bad .zone:focus-visible{outline:3px solid #FFD23F}
+.bad .zone.found{border-color:#D7263D;background:rgba(215,38,61,.08)}
+.bad .zone.fine{border-color:#1F7A4D;background:rgba(31,122,77,.06)}
+.errgrid{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:1.5rem;align-items:start}
+
+/* Exercice */
+.mission{background:var(--ink);color:var(--bg);border-radius:12px;padding:1.4rem 1.5rem}
+.mission h3{margin-top:0;color:var(--yellow);font-family:var(--display);font-weight:400;font-size:1.8rem}
+.mission a{color:var(--yellow)}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-top:1rem}
+.data div{background:rgba(255,255,255,.08);border-radius:8px;padding:.6rem .8rem}
+.data b{display:block;font-size:.85rem;opacity:.8;font-weight:400}
+.swatch{display:inline-block;width:1rem;height:1rem;border-radius:3px;vertical-align:-2px;border:1px solid rgba(255,255,255,.5);margin-right:.3rem}
+ol.steps{padding-left:0;list-style:none;counter-reset:s}
+ol.steps>li{counter-increment:s;position:relative;padding:1rem 1rem 1rem 3.6rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:.7rem 0;max-width:none}
+ol.steps>li::before{content:counter(s);position:absolute;left:1rem;top:.9rem;font-family:var(--display);font-size:1.9rem;line-height:1;color:var(--green)}
+ol.steps li h4{margin:0 0 .3rem;font-size:1.1rem}
+.tool{display:inline-block;background:var(--green-soft);border:1px solid var(--green);color:var(--ink);border-radius:4px;padding:0 .4rem;font-weight:700;font-size:.92rem}
+kbd{font-family:var(--body);background:var(--bg);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35rem;font-size:.9rem}
+.tabs{display:flex;gap:.4rem;margin:.6rem 0}
+.tabs button{font:inherit;font-weight:700;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:6px;padding:.3rem .8rem;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.check label{display:flex;gap:.6rem;align-items:flex-start;padding:.3rem 0;cursor:pointer}
+.check input{accent-color:var(--green);width:1.15rem;height:1.15rem;margin-top:.3rem}
+.bar{height:.7rem;background:var(--line);border-radius:6px;overflow:hidden;margin:.6rem 0}
+.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+footer{max-width:980px;margin:0 auto;padding:1.5rem 1rem 3rem;border-top:1px solid var(--line)}
+footer li{font-size:.92rem;margin:.3rem 0}
+
+@media (max-width:760px){
+  header.hero{grid-template-columns:1fr}
+  .anat,.errgrid{grid-template-columns:1fr}
+  .poster,.bad{max-width:340px;margin:0 auto}
+  .aida{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Parties de la séance">
+  <div class="in">
+    <a href="#cours">1. Le cours</a>
+    <a href="#verif">2. Je vérifie</a>
+    <a href="#exo">3. L'exercice</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <span class="class">2de MRC · Communication commerciale</span>
+    <h1>L'affiche promotionnelle</h1>
+    <p>Objectif de la séance : savoir ce qu'on met sur une affiche promo, comment on l'organise, ce que la loi impose sur les prix… puis en créer une vraie.</p>
+    <p>Travaille dans l'ordre : le cours, les vérifications, puis l'exercice.</p>
+  </div>
+  <div class="tag" aria-hidden="true">−30 %<small><s>50,00 €</s> 35,00 €</small></div>
+</header>
+
+<main>
+
+<!-- ================= PARTIE 1 : COURS ================= -->
+<section class="part" id="cours">
+  <div class="part-head"><span class="n">1</span><h2>Le cours</h2></div>
+
+  <div class="card def">
+    <h4>Définition</h4>
+    <p style="margin:0">L'affiche promotionnelle est un support de communication commerciale placé en magasin ou en vitrine. Elle annonce une offre limitée dans le temps (réduction de prix, lot, produit offert…) pour attirer l'attention du client et <strong>déclencher l'achat</strong>.</p>
+  </div>
+
+  <h3>Les éléments d'une affiche promo</h3>
+  <p>Clique sur les pastilles numérotées de l'affiche pour découvrir chaque élément. <span class="muted">(Enseigne et produit fictifs.)</span></p>
+
+  <div class="anat">
+    <div class="poster" id="poster" aria-label="Exemple d'affiche promotionnelle">
+      <div class="row band"><span class="dot"></span>Le Rayon Vert<button class="hs" data-k="0" aria-pressed="false" aria-label="Élément 1">1</button></div>
+      <div class="row hook">Prêts pour la reprise&nbsp;?<button class="hs" data-k="1" aria-pressed="false" aria-label="Élément 2">2</button></div>
+      <div class="row prod">Chaussures de running Trail 300<button class="hs" data-k="2" aria-pressed="false" aria-label="Élément 3">3</button></div>
+      <div class="row visual">
+        <svg width="150" height="80" viewBox="0 0 170 90" role="img" aria-label="Dessin d'une chaussure">
+          <path d="M10 62 C14 40 40 38 58 30 L78 18 C84 14 92 16 94 22 L100 36 C120 40 148 44 160 58 L160 70 L10 70 Z" fill="#1F7A4D"/>
+          <path d="M10 70 L160 70 L158 78 L12 78 Z" fill="#16241D"/>
+          <path d="M62 34 L84 44 M68 30 L90 40 M74 26 L94 36" stroke="#FFD23F" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <button class="hs" data-k="3" aria-pressed="false" aria-label="Élément 4">4</button>
+        <div class="sticker">−30 %<button class="hs" data-k="4" aria-pressed="false" aria-label="Élément 5">5</button></div>
+      </div>
+      <div class="row old">Prix antérieur : <s>50,00 €</s><button class="hs" data-k="5" aria-pressed="false" aria-label="Élément 6">6</button></div>
+      <div class="row new">35,00 €<button class="hs" data-k="6" aria-pressed="false" aria-label="Élément 7">7</button></div>
+      <div class="row dates">Du 5 au 18 octobre 2026<button class="hs" data-k="7" aria-pressed="false" aria-label="Élément 8">8</button></div>
+      <div class="row ctarow"><span class="cta">Rendez-vous au rayon running</span><button class="hs" data-k="8" aria-pressed="false" aria-label="Élément 9">9</button></div>
+      <div class="row legal">Offre valable dans la limite des stocks disponibles.<button class="hs" data-k="9" aria-pressed="false" aria-label="Élément 10">10</button></div>
+    </div>
+    <div>
+      <div class="card anat-panel" id="anatPanel" aria-live="polite">
+        <h4>Clique sur une pastille</h4>
+        <p class="muted">Chaque numéro correspond à un élément de l'affiche. Découvre les 10.</p>
+      </div>
+      <div class="anat-list" id="anatList"></div>
+      <p class="hint" id="anatCount">0 / 10 éléments découverts</p>
+    </div>
+  </div>
+
+  <h3>Le modèle AIDA : les 4 étapes d'un bon message</h3>
+  <p>Le modèle AIDA est un modèle classique en marketing. Il décrit le chemin que le message doit faire faire au client. Clique sur chaque carte pour la retourner.</p>
+  <div class="aida" id="aida"></div>
+
+  <h3>Les règles de mise en page</h3>
+  <p>Ces règles ne sont pas des lois : ce sont des conseils de professionnels de la communication visuelle pour que l'affiche soit lue et comprise vite.</p>
+  <div class="rules">
+    <div class="card"><h4>Un seul message</h4><p style="margin:0">Une affiche = une offre principale. Si tout est important, plus rien ne ressort.</p></div>
+    <div class="card"><h4>La hiérarchie</h4><p style="margin:0">Le plus important en plus gros : l'offre et le prix d'abord, les détails (conditions) en petit.</p></div>
+    <div class="card"><h4>Lisible de loin</h4><p style="margin:0">Le client passe devant sans s'arrêter : textes courts, gros caractères, fort contraste entre texte et fond.</p></div>
+    <div class="card"><h4>Peu de polices, peu de couleurs</h4><p style="margin:0">Deux polices maximum et les couleurs de l'enseigne : l'affiche reste claire et reconnaissable.</p></div>
+    <div class="card"><h4>Le sens de lecture</h4><p style="margin:0">On lit de haut en bas et de gauche à droite : place l'accroche en haut, l'appel à l'action en bas.</p></div>
+    <div class="card"><h4>Respirer</h4><p style="margin:0">Laisse des espaces vides autour des éléments. Une affiche trop chargée fatigue l'œil.</p></div>
+  </div>
+
+  <h3>Ce que dit la loi</h3>
+  <div class="card law">
+    <h4>1. Annoncer une réduction de prix : le prix antérieur</h4>
+    <p>Depuis le 28 mai 2022, toute annonce de réduction de prix doit indiquer le <strong>prix antérieur</strong>. Ce prix antérieur est <strong>le prix le plus bas</strong> pratiqué par le magasin pour tous les clients <strong>pendant les 30 jours</strong> qui précèdent la réduction.</p>
+    <p>Exception : cette règle ne s'applique pas aux produits périssables qui risquent de s'abîmer vite (ex. : fruits et légumes frais).</p>
+    <p>Une fausse promotion (prix barré inventé ou gonflé) peut être sanctionnée comme une pratique commerciale trompeuse.</p>
+  </div>
+  <div class="card law">
+    <h4>2. La langue française est obligatoire</h4>
+    <p>La loi du 4 août 1994 (dite « loi Toubon »), article 2, rend obligatoire l'emploi du français dans l'offre et la présentation d'un produit, ainsi que dans toute publicité écrite. Un mot anglais comme « Sale » est possible, mais il doit être accompagné d'une traduction française lisible.</p>
+  </div>
+
+  <h3>Calculer le nouveau prix</h3>
+  <p>Pour appliquer un pourcentage de réduction, on multiplie le prix antérieur par le coefficient (1 − taux).</p>
+  <p class="calc">Nouveau prix = Prix antérieur × (1 − taux de réduction)<br>Exemple : 50,00 € × (1 − 0,30) = 50,00 × 0,70 = <strong>35,00 €</strong></p>
+</section>
+
+<!-- ================= PARTIE 2 : VÉRIFICATION ================= -->
+<section class="part" id="verif">
+  <div class="part-head"><span class="n">2</span><h2>Je vérifie que j'ai compris</h2></div>
+
+  <h3>A. Quiz</h3>
+  <form id="quiz" onsubmit="return false"></form>
+  <p><button class="btn" id="quizBtn" type="button">Corriger le quiz</button> <span class="score" id="quizScore" aria-live="polite"></span></p>
+
+  <h3>B. Le bon prix barré</h3>
+  <p>Le magasin veut faire −20 % sur un sac de sport à partir du <strong>15 octobre 2026</strong>. Voici l'historique de ses prix :</p>
+  <div class="scroll">
+    <table class="hist">
+      <thead><tr><th>Période</th><th>Prix de vente</th></tr></thead>
+      <tr><td>Du 15 au 24 septembre 2026</td><td>59,00 €</td></tr>
+      <tr><td>Du 25 septembre au 1er octobre 2026 (opération spéciale)</td><td>49,00 €</td></tr>
+      <tr><td>Du 2 au 14 octobre 2026</td><td>59,00 €</td></tr>
+    </table>
+  </div>
+  <fieldset>
+    <legend>1) Quel prix antérieur le magasin doit-il afficher ?</legend>
+    <label class="opt"><input type="radio" name="pa" value="59"> 59,00 € (le prix d'hier)</label>
+    <label class="opt"><input type="radio" name="pa" value="49"> 49,00 € (le prix le plus bas des 30 derniers jours)</label>
+    <label class="opt"><input type="radio" name="pa" value="54"> 54,00 € (la moyenne des deux prix)</label>
+    <div class="field">
+      <label for="np">2) Calcule le nouveau prix après −20 % (en €)</label>
+      <input type="text" id="np" inputmode="decimal" placeholder="ex. : 12,50">
+    </div>
+    <button class="btn" type="button" id="paBtn">Vérifier</button>
+    <div class="fb" id="paFb" aria-live="polite"></div>
+  </fieldset>
+
+  <h3>C. Chasse aux erreurs</h3>
+  <p>Cette affiche contient <strong>5 erreurs</strong>. Clique sur les zones qui posent problème. Attention : certaines zones sont correctes !</p>
+  <div class="errgrid">
+    <div class="bad" id="bad">
+      <button class="zone" data-z="lang" style="top:0;height:18%;background:#111;color:#FFD23F;font-family:'Anton',Impact,sans-serif;font-size:2.6rem">BIG SALE</button>
+      <button class="zone" data-z="prod" style="top:18%;height:14%;font-family:'Comic Sans MS','Comic Neue',cursive;font-size:1.3rem;font-weight:700">Casque audio sans fil</button>
+      <button class="zone" data-z="fonts" style="top:32%;height:22%;flex-direction:column;gap:.1rem">
+        <span style="font-family:Georgia,serif;font-style:italic;font-size:1.1rem">Un son incroyable</span>
+        <span style="font-family:'Courier New',monospace;font-size:1rem">Autonomie géniale</span>
+        <span style="font-family:'Brush Script MT',cursive;font-size:1.5rem">Trop stylé !!!</span>
+      </button>
+      <button class="zone" data-z="price" style="top:54%;height:20%;flex-direction:column">
+        <span style="font-family:'Anton',Impact,sans-serif;font-size:3rem;color:#D7263D;line-height:1">−40 %</span>
+        <span style="font-size:.95rem">sur ce casque</span>
+      </button>
+      <button class="zone" data-z="stock" style="top:74%;height:10%;font-size:.8rem;color:#4F5F57">Dans la limite des stocks disponibles.</button>
+      <button class="zone" data-z="brand" style="top:84%;height:16%;font-size:.8rem;color:#9BA9A2">(bas de l'affiche vide)</button>
+    </div>
+    <div>
+      <div class="card" id="badPanel" aria-live="polite"><p class="muted" style="margin:0">Clique sur une zone de l'affiche.</p></div>
+      <div class="bar" aria-hidden="true"><i id="badBar"></i></div>
+      <p class="hint" id="badCount">0 / 5 erreurs trouvées</p>
+      <button class="btn alt" type="button" id="badReset">Recommencer</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTIE 3 : EXERCICE ================= -->
+<section class="part" id="exo">
+  <div class="part-head"><span class="n">3</span><h2>L'exercice : crée ton affiche</h2></div>
+
+  <div class="mission">
+    <h3>Ta mission</h3>
+    <p>Tu es en période de formation au magasin <strong>Le Rayon Vert</strong>, magasin de sport indépendant (entreprise fictive). Ton tuteur, M. Lefèvre, te demande de réaliser l'affiche de la prochaine opération promotionnelle. Elle sera imprimée en A4 et placée à l'entrée du rayon.</p>
+    <div class="data">
+      <div><b>Produit</b>Gourde isotherme inox 750 ml</div>
+      <div><b>Prix de vente habituel</b>25,00 €</div>
+      <div><b>Opération passée</b>Vendue 20,00 € du 20 au 26 septembre 2026</div>
+      <div><b>Réduction demandée</b>−20 %</div>
+      <div><b>Dates de l'opération</b>Du 5 au 18 octobre 2026</div>
+      <div><b>Couleurs de l'enseigne</b><span class="swatch" style="background:#1F7A4D"></span>#1F7A4D <span class="swatch" style="background:#FFD23F"></span>#FFD23F <span class="swatch" style="background:#fff"></span>blanc</div>
+      <div><b>Condition</b>Dans la limite des stocks disponibles</div>
+      <div><b>Format</b>A4 portrait (21 × 29,7 cm)</div>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <h4>Prépare ton contenu (dans cette page)</h4>
+      <p>Avant d'ouvrir un logiciel, on prépare le texte. Remplis la fiche ci-dessous. Elle est enregistrée sur cet ordinateur.</p>
+      <div class="card" style="margin-top:.8rem">
+        <div class="field">
+          <label for="f_hook">Mon accroche (courte, en français)</label>
+          <input type="text" id="f_hook" maxlength="60" placeholder="ex. : Hydrate-toi malin !">
+          <div class="hint" id="f_hookCount">0 mot</div>
+        </div>
+        <div class="field">
+          <label for="f_pa">Le prix antérieur à afficher</label>
+          <select id="f_pa">
+            <option value="">— choisis —</option>
+            <option value="25">25,00 €</option>
+            <option value="20">20,00 €</option>
+            <option value="22.5">22,50 €</option>
+          </select>
+          <div class="hint">Aide : l'opération commence le 5 octobre. Regarde tous les prix pratiqués dans les 30 jours avant.</div>
+        </div>
+        <div class="field">
+          <label for="f_np">Le nouveau prix après −20 % (en €)</label>
+          <input type="text" id="f_np" inputmode="decimal" placeholder="ex. : 12,50">
+        </div>
+        <div class="field">
+          <label for="f_cta">Mon appel à l'action</label>
+          <input type="text" id="f_cta" maxlength="60" placeholder="ex. : Venez la découvrir au rayon randonnée">
+        </div>
+        <button class="btn" type="button" id="prepBtn">Vérifier ma fiche</button>
+        <div class="fb" id="prepFb" aria-live="polite"></div>
+      </div>
+    </li>
+
+    <li>
+      <h4>Crée l'affiche avec Canva</h4>
+      
+      <div id="t_canva">
+        <p><span class="tool">Canva</span> en ligne, avec le compte classe donné par ton professeur (Canva Éducation est gratuit pour les établissements scolaires). Le nom exact des menus peut varier selon les mises à jour.</p>
+        <ol>
+          <li>Clique sur <strong>Créer un design</strong>, cherche <strong>Affiche</strong> ou <strong>Document A4</strong>, format portrait.</li>
+          <li>Choisis <strong>une page vierge</strong> (pas de modèle tout fait : c'est ta mise en page qui est évaluée).</li>
+          <li>Fond : clique sur la page, puis sur l'icône de couleur, et saisis le code <strong>#FFFFFF</strong> ou <strong>#1F7A4D</strong>.</li>
+          <li>Menu <strong>Texte</strong> : ajoute l'accroche en titre, puis le nom du produit, le prix, les dates, l'appel à l'action et la condition. Deux polices maximum.</li>
+          <li>Menu <strong>Éléments</strong> : cherche « gourde » pour trouver une image. Utilise uniquement les images de Canva ou tes propres photos, jamais une image copiée sur Internet (droit d'auteur).</li>
+          <li>Pour barrer le prix antérieur : sélectionne le texte, puis l'option <strong>barré</strong> (icône S barré, parfois dans le menu <kbd>…</kbd>).</li>
+          <li>Enregistre en PDF : <strong>Partager</strong> → <strong>Télécharger</strong> → type de fichier <strong>PDF impression</strong>.</li>
+        </ol>
+      </div>
+    </li>
+
+    <li>
+      <h4>Contrôle ton affiche avant de la rendre</h4>
+      <p>Coche chaque point uniquement s'il est vrai sur <strong>ton</strong> affiche.</p>
+      <div class="check card" id="checklist"></div>
+      <div class="bar" aria-hidden="true"><i id="ckBar"></i></div>
+      <p class="hint" id="ckCount"></p>
+    </li>
+
+    <li>
+      <h4>Rends ton travail</h4>
+      <p>Nomme ton fichier <strong>NOM_Prenom_affiche.pdf</strong> et dépose-le à l'endroit indiqué par ton professeur (ENT, dossier partagé…). Prépare-toi à présenter ton affiche à l'oral en 1 minute : explique ton accroche et comment tu as trouvé le prix.</p>
+    </li>
+  </ol>
+</section>
+</main>
+
+
+<script>
+(function(){
+  const store = {
+    get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
+    set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  };
+  const num = s => parseFloat(String(s).replace(/\s|€/g,'').replace(',','.'));
+  const eur = n => n.toFixed(2).replace('.',',')+' €';
+
+  /* ---------- Anatomie ---------- */
+  const parts = [
+    ["L'enseigne (logo)", "Le nom et le logo du magasin. Le client sait immédiatement qui propose l'offre. On utilise les couleurs de l'enseigne pour être reconnaissable."],
+    ["L'accroche", "Une phrase courte et percutante, placée en haut. Son rôle : attirer l'attention en une seconde (étape A du modèle AIDA)."],
+    ["Le produit", "Le nom précis du produit concerné par l'offre, pour éviter toute confusion avec les autres articles du rayon."],
+    ["Le visuel", "Une image du produit. Le client reconnaît le produit sans lire. L'image doit être libre de droits (banque d'images autorisée ou photo prise par le magasin)."],
+    ["L'offre (pastille)", "Le pourcentage de réduction, mis en valeur (couleur vive, forme ronde, grande taille). C'est souvent l'élément le plus visible de l'affiche."],
+    ["Le prix antérieur", "Obligatoire pour toute annonce de réduction de prix : c'est le prix le plus bas pratiqué dans les 30 jours avant la réduction (article L112-1-1 du Code de la consommation). On l'affiche barré, en plus petit."],
+    ["Le nouveau prix", "Le prix que le client va payer, écrit en gros et dans une couleur qui ressort. Il doit être juste : 50,00 € × 0,70 = 35,00 €."],
+    ["La durée de l'offre", "Les dates de début et de fin. Elles informent le client et créent un sentiment d'urgence (« je dois en profiter maintenant »)."],
+    ["L'appel à l'action", "Une phrase qui dit au client quoi faire : « Rendez-vous au rayon running », « Demandez conseil à nos vendeurs »… C'est l'étape Action du modèle AIDA."],
+    ["Les conditions", "Les précisions sur l'offre (ex. : dans la limite des stocks disponibles), écrites en petit mais lisibles."]
+  ];
+  const seen = new Set(store.get('ap_seen10')||[]);
+  const panel = document.getElementById('anatPanel');
+  const list = document.getElementById('anatList');
+  const hs = [...document.querySelectorAll('.hs')];
+  function showPart(i){
+    hs.forEach(b=>b.setAttribute('aria-pressed', b.dataset.k==i ? 'true':'false'));
+    panel.innerHTML = '<h4>'+(+i+1)+'. '+parts[i][0]+'</h4><p style="margin:0">'+parts[i][1]+'</p>';
+    seen.add(+i); store.set('ap_seen10',[...seen]); renderList();
+  }
+  function renderList(){
+    list.innerHTML='';
+    parts.forEach((p,i)=>{
+      const b=document.createElement('button'); b.type='button';
+      b.textContent=(i+1)+'. '+(seen.has(i)?p[0]:'?');
+      if(seen.has(i)) b.classList.add('seen');
+      b.onclick=()=>showPart(i); list.appendChild(b);
+    });
+    document.getElementById('anatCount').textContent = seen.size+' / 10 éléments découverts';
+  }
+  hs.forEach(b=>b.addEventListener('click',()=>showPart(b.dataset.k)));
+  renderList();
+
+  /* ---------- AIDA ---------- */
+  const aida = [
+    ["A","Attention","Attirer le regard","Accroche, couleurs vives, pastille de réduction, visuel du produit."],
+    ["I","Intérêt","Donner envie d'en savoir plus","Nom du produit, avantage principal (ex. : garde l'eau fraîche 24 h)."],
+    ["D","Désir","Donner envie d'acheter","Le prix barré et le nouveau prix : le client voit ce qu'il gagne."],
+    ["A","Action","Faire agir le client","Appel à l'action et dates limites : « Rendez-vous au rayon… », « jusqu'au 18 octobre »."]
+  ];
+  const aidaBox=document.getElementById('aida');
+  aida.forEach(a=>{
+    const d=document.createElement('div'); d.className='flip';
+    d.innerHTML='<button type="button" aria-label="Retourner la carte '+a[1]+'"><div class="inner"><div class="face front"><span class="L">'+a[0]+'</span><span><strong>'+a[1]+'</strong><br>Clique pour voir</span></div><div class="face back"><strong>'+a[1]+' : '+a[2]+'</strong>Sur l\'affiche : '+a[3]+'</div></div></button>';
+    d.querySelector('button').onclick=()=>d.classList.toggle('on');
+    aidaBox.appendChild(d);
+  });
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    {q:"Quel est le rôle principal d'une affiche promotionnelle ?", o:["Décorer le magasin","Présenter l'histoire de l'enseigne","Annoncer une offre limitée dans le temps pour déclencher l'achat","Indiquer les horaires d'ouverture"], a:2, e:"Elle annonce une offre temporaire pour faire acheter."},
+    {q:"Dans quel ordre le modèle AIDA fait-il avancer le client ?", o:["Action, Intérêt, Désir, Attention","Attention, Intérêt, Désir, Action","Intérêt, Attention, Action, Désir","Désir, Attention, Intérêt, Action"], a:1, e:"Attention → Intérêt → Désir → Action."},
+    {q:"Qu'est-ce que le prix antérieur à afficher lors d'une réduction ?", o:["Le prix conseillé par le fabricant","Le prix le plus élevé de l'année","Le prix le plus bas pratiqué dans les 30 jours avant la réduction","Le prix du concurrent"], a:2, e:"Article L112-1-1 du Code de la consommation."},
+    {q:"Une affiche indique seulement « BIG SALE ». Est-ce conforme ?", o:["Oui, tout le monde comprend l'anglais","Non : le français est obligatoire dans la publicité, il faut une traduction lisible","Oui, si l'affiche est colorée","Non, l'anglais est totalement interdit"], a:1, e:"Loi du 4 août 1994, article 2 : le français est obligatoire, mais une autre langue peut être ajoutée."},
+    {q:"Un article à 80,00 € est soldé à −25 %. Quel est le nouveau prix ?", o:["55,00 €","60,00 €","65,00 €","20,00 €"], a:1, e:"80,00 × (1 − 0,25) = 80,00 × 0,75 = 60,00 €."},
+    {q:"Où place-t-on de préférence l'accroche ?", o:["En haut de l'affiche","En tout petit en bas","Au dos de l'affiche","Dans les conditions de l'offre"], a:0, e:"On lit de haut en bas : l'accroche doit être vue en premier."}
+  ];
+  const qf=document.getElementById('quiz');
+  Q.forEach((it,i)=>{
+    const fs=document.createElement('fieldset');
+    fs.innerHTML='<legend>'+(i+1)+'. '+it.q+'</legend>'+it.o.map((o,j)=>'<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'<div class="fb" id="qfb'+i+'"></div>';
+    qf.appendChild(fs);
+  });
+  document.getElementById('quizBtn').onclick=()=>{
+    let s=0;
+    Q.forEach((it,i)=>{
+      const c=qf.querySelector('input[name=q'+i+']:checked'); const fb=document.getElementById('qfb'+i);
+      if(!c){fb.className='fb ko';fb.innerHTML='Pas de réponse.';return;}
+      if(+c.value===it.a){s++;fb.className='fb ok';fb.innerHTML='Juste. <span>'+it.e+'</span>';}
+      else{fb.className='fb ko';fb.innerHTML='Faux. <span>'+it.e+'</span>';}
+    });
+    document.getElementById('quizScore').textContent=s+' / '+Q.length;
+  };
+
+  /* ---------- Prix barré ---------- */
+  document.getElementById('paBtn').onclick=()=>{
+    const c=document.querySelector('input[name=pa]:checked'); const fb=document.getElementById('paFb');
+    const v=num(document.getElementById('np').value); let msg=[];let ok=true;
+    if(!c){ok=false;msg.push('Choisis un prix antérieur.');}
+    else if(c.value!=='49'){ok=false;msg.push('Prix antérieur faux : l\'opération à 49,00 € a eu lieu moins de 30 jours avant le 15 octobre, c\'est donc le prix le plus bas à retenir.');}
+    else msg.push('Prix antérieur juste : 49,00 €.');
+    if(isNaN(v)){ok=false;msg.push('Saisis le nouveau prix.');}
+    else if(Math.abs(v-39.2)<0.005) msg.push('Nouveau prix juste : 49,00 × 0,80 = 39,20 €.');
+    else {ok=false;msg.push('Nouveau prix faux : pars du prix antérieur et multiplie par (1 − 0,20).');}
+    fb.className='fb '+(ok?'ok':'ko'); fb.innerHTML=(ok?'Bravo ! ':'À revoir. ')+'<span>'+msg.join(' ')+'</span>';
+  };
+
+  /* ---------- Chasse aux erreurs ---------- */
+  const Z={
+    lang:[true,"Titre uniquement en anglais","« BIG SALE » sans traduction : le français est obligatoire dans la publicité (loi du 4 août 1994, article 2). Il faudrait par exemple « Promotion » ou une traduction lisible."],
+    prod:[false,"Le nom du produit","Correct : on sait de quel produit il s'agit. (La police n'est pas idéale, mais l'erreur de polices est ailleurs.)"],
+    fonts:[true,"Trop de polices","Trois polices différentes et des textes vagues : l'affiche est difficile à lire. Règle de mise en page : deux polices maximum et des arguments précis."],
+    price:[true,"Pas de prix antérieur ni de nouveau prix","« −40 % » seul ne suffit pas : il faut indiquer le prix antérieur (article L112-1-1 du Code de la consommation) et le client doit voir le prix à payer."],
+    stock:[false,"Les conditions","Correct : la condition de l'offre est indiquée, en petit mais lisible."],
+    brand:[true,"Ni enseigne, ni dates, ni appel à l'action","Le bas de l'affiche est vide : on ne sait pas quel magasin propose l'offre, jusqu'à quand, ni quoi faire. Il faut l'enseigne, la durée de l'offre et un appel à l'action."]
+  };
+  const found=new Set(); const bp=document.getElementById('badPanel');
+  function upd(){document.getElementById('badCount').textContent=found.size+' / 5 erreurs trouvées'+(found.size===5?' : bravo, tu les as toutes trouvées !':'');document.getElementById('badBar').style.width=(found.size/5*100)+'%';}
+  document.querySelectorAll('.bad .zone').forEach(z=>{
+    z.onclick=()=>{
+      const d=Z[z.dataset.z];
+      if(d[0]){found.add(z.dataset.z);z.classList.add('found');bp.innerHTML='<p class="fb ko" style="margin:0 0 .3rem">Erreur trouvée : '+d[1]+'</p><p style="margin:0">'+d[2]+'</p>';}
+      else{z.classList.add('fine');bp.innerHTML='<p class="fb ok" style="margin:0 0 .3rem">Pas d\'erreur ici : '+d[1]+'</p><p style="margin:0">'+d[2]+'</p>';}
+      upd();
+    };
+  });
+  document.getElementById('badReset').onclick=()=>{found.clear();document.querySelectorAll('.bad .zone').forEach(z=>z.classList.remove('found','fine'));bp.innerHTML='<p class="muted" style="margin:0">Clique sur une zone de l\'affiche.</p>';upd();};
+  upd();
+
+  /* ---------- Fiche de préparation ---------- */
+  const ids=['f_hook','f_pa','f_np','f_cta'];
+  const saved=store.get('ap_prep')||{};
+  ids.forEach(id=>{const el=document.getElementById(id); if(saved[id]!=null) el.value=saved[id];
+    el.addEventListener('input',()=>{saved[id]=el.value;store.set('ap_prep',saved);if(id==='f_hook')words();});});
+  function words(){const n=document.getElementById('f_hook').value.trim().split(/\s+/).filter(Boolean).length;document.getElementById('f_hookCount').textContent=n+(n>1?' mots':' mot')+(n>8?' : c\'est long pour une accroche, essaie de raccourcir.':'');}
+  words();
+  document.getElementById('prepBtn').onclick=()=>{
+    const fb=document.getElementById('prepFb'); let msg=[],ok=true;
+    const hook=document.getElementById('f_hook').value.trim();
+    if(!hook){ok=false;msg.push('Écris une accroche.');}
+    const pa=document.getElementById('f_pa').value;
+    if(pa==='20') msg.push('Prix antérieur juste : 20,00 € (vendue à ce prix du 20 au 26 septembre, soit moins de 30 jours avant le 5 octobre).');
+    else {ok=false;msg.push(pa?'Prix antérieur faux : relis la règle des 30 jours et l\'opération passée.':'Choisis le prix antérieur.');}
+    const np=num(document.getElementById('f_np').value);
+    if(!isNaN(np)&&Math.abs(np-16)<0.005) msg.push('Nouveau prix juste : 20,00 × 0,80 = 16,00 €.');
+    else {ok=false;msg.push(isNaN(np)?'Saisis le nouveau prix.':'Nouveau prix faux : calcule à partir du prix antérieur.');}
+    if(!document.getElementById('f_cta').value.trim()){ok=false;msg.push('Écris un appel à l\'action.');}
+    fb.className='fb '+(ok?'ok':'ko'); fb.innerHTML=(ok?'Fiche validée, tu peux passer à l\'étape 2. ':'À compléter. ')+'<span>'+msg.join(' ')+'</span>';
+  };
+
+  /* ---------- Checklist ---------- */
+  const CK=["Le nom de l'enseigne « Le Rayon Vert » est visible.","L'accroche est en haut, courte et en français.","Le nom exact du produit est écrit : gourde isotherme inox 750 ml.","Une image du produit est présente (image libre de droits).","Le taux de réduction −20 % est bien mis en valeur.","Le prix antérieur 20,00 € est affiché et barré.","Le nouveau prix 16,00 € est écrit en gros.","Les dates « du 5 au 18 octobre 2026 » sont indiquées.","La condition « dans la limite des stocks disponibles » est présente.","Il y a un appel à l'action.","J'utilise les couleurs de l'enseigne et deux polices maximum.","Il n'y a aucune faute d'orthographe (je me suis relu·e).","Mon fichier est au format PDF, nommé NOM_Prenom_affiche.pdf."];
+  const ck=store.get('ap_ck')||[]; const box=document.getElementById('checklist');
+  CK.forEach((t,i)=>{const l=document.createElement('label');l.innerHTML='<input type="checkbox" '+(ck[i]?'checked':'')+'> <span>'+t+'</span>';
+    l.querySelector('input').onchange=e=>{ck[i]=e.target.checked;store.set('ap_ck',ck);ckUpd();};box.appendChild(l);});
+  function ckUpd(){const n=CK.filter((_,i)=>ck[i]).length;document.getElementById('ckBar').style.width=(n/CK.length*100)+'%';document.getElementById('ckCount').textContent=n+' / '+CK.length+' points validés'+(n===CK.length?' : ton affiche est prête à être rendue.':'');}
+  ckUpd();
+})();
+</script>
+</body>
+</html>
